@@ -1,32 +1,20 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Vertex
-{
-    private List<Edge> EdgeListofVertex;
+public class Vertex {
+    private final List<Edge> edgeListOfVertex;
     private String key;
 
-    public Vertex()
+    public Vertex(String key) //add independent vertex
     {
-
-    }
-    public Vertex(String value) //add independent vertex
-    {
-        this.key = value;
-    }
-
-    public Vertex(List<Edge> edgeList) //add vertex for ready graph
-    {
-        this.EdgeListofVertex = edgeList;
+        this.key = key;
+        this.edgeListOfVertex = new ArrayList<>();
     }
 
     public List<Edge> getEdgeList() {
-        return EdgeListofVertex;
-    }
-
-    public void setEdgeList(List<Edge> edgeList) {
-        EdgeListofVertex = edgeList;
+        return edgeListOfVertex;
     }
 
     public String getKey() {
@@ -35,5 +23,10 @@ public class Vertex
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    @Override
+    public String toString() {
+        return key;
     }
 }

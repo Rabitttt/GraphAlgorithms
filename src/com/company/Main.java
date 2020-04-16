@@ -1,18 +1,18 @@
 package com.company;
 
+
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void showAllVertices(Graph graph)
-    {
-        graph.getVertexMap().forEach((key,value)->{
+    public static void showAllVertices(Graph graph) {
+        graph.getVertexMap().forEach((key, value) -> {
             System.out.println(key + " ");
         });
     }
-    public static void ShowKruskalResults(List<Edge> kruskalResult)
-    {
+
+    public static void ShowKruskalResults(List<Edge> kruskalResult) {
         kruskalResult.forEach(edge -> {
             System.out.println("Vertices  : " + edge.getSource() + " - " + edge.getDestination() + " Edge : " + edge.getWeight());
         });
@@ -22,8 +22,7 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         Graph graph = new Graph();
 
-        while(true)
-        {
+        while (true) {
             System.out.println("1-Add New Vertex");
             System.out.println("2-Add New Edge");
             System.out.println("3-Kruskal Run");
@@ -32,11 +31,11 @@ public class Main {
 
             Choice choice = Choice.fromValue(scan.nextInt());
 
-            switch (choice){
+            switch (choice) {
                 case ADD_NEW_VERTEX:
                     System.out.println("Vertex key : ");
-                    String vertexKey = scan.next();
-                    graph.addVertex(vertexKey);
+                    Vertex vertex = new Vertex(scan.next());
+                    graph.addVertex(vertex);
                     break;
 
                 case ADD_NEW_EDGE:
@@ -47,12 +46,11 @@ public class Main {
                     Vertex sourceVertex = graph.getVertexMap().get(scan.next());
                     System.out.println("Select destination Vertex for Edge : ");
                     Vertex destinationVertex = graph.getVertexMap().get(scan.next());
-                    if(sourceVertex.getKey() == destinationVertex.getKey())
-                    {
+                    if (sourceVertex.getKey() == destinationVertex.getKey()) {
                         System.out.println("Source can not be destination");
                         break;
                     }
-                    graph.addEdge(new Edge(weight,sourceVertex,destinationVertex));
+                    graph.addEdge(new Edge(weight, sourceVertex, destinationVertex));
                     break;
 
                 case RUN_KRUSKAL:

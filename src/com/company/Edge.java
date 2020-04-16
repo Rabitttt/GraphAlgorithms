@@ -2,22 +2,24 @@ package com.company;
 
 public class Edge {
 
-    private int Weight;
+    private int weight;
     private Vertex source;
     private Vertex destination;
 
-    public Edge(int Weight, Vertex source, Vertex destination) {
-        this.Weight = Weight;
+    public Edge(int weight, Vertex source, Vertex destination) {
+        this.weight = weight;
         this.source = source;
         this.destination = destination;
+        this.source.getEdgeList().add(this);
+        this.destination.getEdgeList().add(this);
     }
 
     public int getWeight() {
-        return Weight;
+        return weight;
     }
 
     public void setWeight(int weight) {
-        Weight = weight;
+        this.weight = weight;
     }
 
     public Vertex getSource() {

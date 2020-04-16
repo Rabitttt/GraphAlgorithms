@@ -1,25 +1,23 @@
 package com.company;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Graph {
-    private List<Edge> edgeList;
-    private Map<String, Vertex> vertexMap;
+    private final List<Edge> edgeList;
+    private final Map<String, Vertex> vertexMap;
 
     public Graph() {
-    }
-
-    public Graph(List<Edge> edgeList, Map<String, Vertex> vertexList) {
-        this.edgeList = edgeList;
-        this.vertexMap = vertexList;
+        this.edgeList = new ArrayList<>();
+        this.vertexMap = new HashMap<>();
     }
 
     public List<Edge> getEdgeList() {
         return edgeList;
     }
+
     public Map<String, Vertex> getVertexMap() {
         return vertexMap;
     }
@@ -28,12 +26,8 @@ public class Graph {
         edgeList.add(edge);
     }
 
-    public void addVertex(String key) {
-        vertexMap.put(key, new Vertex(key));
-    }
-
-    public void addVertex(String key, Vertex vertex) {
-        vertexMap.put(key, vertex);
+    public void addVertex(Vertex vertex) {
+        vertexMap.put(vertex.getKey(), vertex);
     }
 
 }
