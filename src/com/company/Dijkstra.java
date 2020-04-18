@@ -1,72 +1,60 @@
 package com.company;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Dijkstra {
     private final Graph graph;
-    private int Smaller;
-    private Vertex nextVertex;
-    private Vertex beginningVertex;
-    private Map<String, Integer> costs; //String : KEY of Vertex  ,  Integer : Cost
-    private Map<String, Boolean> visited; //String : KEY of Vertex , Boolean : controls is vertex visited before
+    private Map<Vertex, Integer> costs;
+    private Map<Vertex, Boolean> isVisited;
 
     public Dijkstra(Graph graph) {
-        this.visited = new HashMap<>();
+        this.isVisited = new HashMap<>();
         this.costs = new HashMap<>();
         this.graph = graph;
-        this.beginningVertex = new Vertex();
     }
 
-    public Map<String,Integer> run(String beginning) {
-        initializeMaps();
-        this.beginningVertex = graph.getVertexMap().get(beginning);
-        visited.put(beginningVertex.getKey(),true);
-        costs.put(beginningVertex.getKey(),0);
+    public Map<Vertex, Integer> run(String beginning) {
+        Vertex beginner = new Vertex();
+        initializeMaps(beginner);
 
-        iterateVisitedVerticesForFindNextVertexToGo();
-
-        return costs;
-    }
-
-    public void findMinimumNotVisitedNeighbor(Vertex tryVertex)
-    {
-        this.Smaller = Integer.MAX_VALUE;
-        tryVertex.getEdgeList().forEach(edge -> {
-            if(Smaller > costs.get(edge.getDestination().getKey()))
-            {
-                nextVertex = edge.getDestination();
-            }
-        });
-    }
-    public void iterateVisitedVerticesForFindNextVertexToGo()
-    {
-
-        graph.getVertexMap().forEach((key,vertex)->
+        while (!isAllVerticesVisited())
         {
-            if(visited.get(key)) //Only Visited Verteices
-            {
-                findMinimumNotVisitedNeighbor(vertex);
-            }
-        });
-        goForNextVertex();
-    }
-
-    public Map<String, Integer> goForNextVertex()
-    {
-        if(this.Smaller != Integer.MAX_VALUE)
-        {
-            iterateVisitedVerticesForFindNextVertexToGo();
-            visited.put(nextVertex.getKey(),true);
+            iterateVisitedVertices();
         }
+
         return costs;
     }
 
-    public void initializeMaps() {
-        graph.getVertexMap().forEach((key, value) -> {
-            costs.put(key, Integer.MAX_VALUE);
-            visited.put(key, false);
-        });
+
+    public int findSmallerVertex(Vertex vertex) //find smaller cost vertex for take next
+    {
+        vertex.getEdgeList().sort(Comparator.comparing(Edge::getWeight)); //sorted list
+        return vertex.getEdgeList().get(0).getWeight(); //returned first index
+    }
+
+    public void iterateVisitedVertices() {
+        Vertex nextVertex = new Vertex();
+        int smallestNeighborCost = Integer.MAX_VALUE;
+        for (Vertex vertex : graph.getVertexMap().values()) {
+            if (isVisited.get(vertex) && smallestNeighborCost > findSmallerVertex(vertex)) {
+                smallestNeighborCost = costs.get(vertex) + findSmallerVertex(vertex);
+                nextVertex = vertex.getEdgeList().get(0).getDestination();
+            }
+        }
+        isVisited.put(nextVertex,true);
+        costs.put(nextVertex,smallestNeighborCost);
+    }
+
+    public Boolean isAllVerticesVisited() {
+        return !isVisited.containsValue(false);
+    }
+
+
+    public void initializeMaps(Vertex beginnerVertex) {
+        graph.getVertexMap().forEach((key, value) -> costs.put(value, Integer.MAX_VALUE));
+        costs.put(beginnerVertex, 0);
     }
 
 }

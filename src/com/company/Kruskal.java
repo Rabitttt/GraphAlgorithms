@@ -24,9 +24,9 @@ public class Kruskal {
 
         graph.getEdgeList().forEach(edge -> {
             if (isVerticesOfEdgeNotVisited(edge)) {
-                result.add(edge);
                 visitedVertexMap.put(edge.getSource().getKey(), true);
                 visitedVertexMap.put(edge.getDestination().getKey(), true);
+                result.add(edge);
             }
 
         });

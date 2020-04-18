@@ -1,7 +1,5 @@
 package com.company;
 
-
-import javax.sound.midi.Soundbank;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -14,10 +12,10 @@ public class Main {
         });
     }
 
-    public static void ShowDijkstraResults( Map<String,Integer> dijkstraResults)
+    public static void ShowDijkstraResults( Map<Vertex,Integer> dijkstraResults)
     {
-        dijkstraResults.forEach((key, value) -> {
-            System.out.println("Vertex : " + key + " " + "Cost : " + value);
+        dijkstraResults.forEach((key, cost) -> {
+            System.out.println("Vertex : " + key + " " + "Cost : " + cost);
         });
     }
 
