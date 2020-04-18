@@ -7,6 +7,11 @@ public class Vertex {
     private final List<Edge> edgeListOfVertex;
     private String key;
 
+    public Vertex()
+    {
+        this.edgeListOfVertex = new ArrayList<>();
+    }
+
     public Vertex(String key) //add independent vertex
     {
         this.key = key;

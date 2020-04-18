@@ -6,6 +6,7 @@ public class Edge {
     private Vertex source;
     private Vertex destination;
 
+
     public Edge(int weight, Vertex source, Vertex destination) {
         this.weight = weight;
         this.source = source;

@@ -1,7 +1,9 @@
 package com.company;
 
 
+import javax.sound.midi.Soundbank;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -9,6 +11,13 @@ public class Main {
     public static void showAllVertices(Graph graph) {
         graph.getVertexMap().forEach((key, value) -> {
             System.out.println(key + " ");
+        });
+    }
+
+    public static void ShowDijkstraResults( Map<String,Integer> dijkstraResults)
+    {
+        dijkstraResults.forEach((key, value) -> {
+            System.out.println("Vertex : " + key + " " + "Cost : " + value);
         });
     }
 
@@ -26,7 +35,8 @@ public class Main {
             System.out.println("1-Add New Vertex");
             System.out.println("2-Add New Edge");
             System.out.println("3-Kruskal Run");
-            System.out.println("4-Exit");
+            System.out.println("4-Dijkstra Run");
+            System.out.println("5-Exit");
 
 
             Choice choice = Choice.fromValue(scan.nextInt());
@@ -56,6 +66,12 @@ public class Main {
                 case RUN_KRUSKAL:
                     Kruskal kruskal = new Kruskal(graph);
                     ShowKruskalResults(kruskal.run());
+                    break;
+                case RUN_DIJKSTRA:
+                    Dijkstra dijkstra = new Dijkstra(graph);
+                    System.out.println("Enter Dijkstra Begining Vertex : ");
+                    showAllVertices(graph);
+                    ShowDijkstraResults(dijkstra.run(scan.next()));
                     break;
                 case EXIT:
                     System.exit(1);
